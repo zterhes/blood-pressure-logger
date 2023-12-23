@@ -1,8 +1,6 @@
 "use client";
 
-import Logo from "@/components/Logo";
 import { Button } from "@nextui-org/react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -11,7 +9,7 @@ export default function Home() {
     <div>
       <Button
         radius="full"
-        className="bg-red"
+        className="bg-red absolute bottom-40 right-8 min-h-12"
         onPress={() => router.push("/add")}
       >
         +

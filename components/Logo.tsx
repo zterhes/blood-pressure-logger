@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Logo = () => {
+  const router = useRouter();
   return (
     <div className="pl-9">
       <div>
@@ -10,6 +14,7 @@ const Logo = () => {
           width={45}
           height={45}
           priority
+          onClick={() => router.push("/")}
         />
       </div>
     </div>
