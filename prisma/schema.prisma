@@ -13,9 +13,9 @@ datasource db {
 
 model Measurement {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  systolic String
-  diastolic String
-  heartRate String @map("heart_rate")
+  systolic BigInt
+  diastolic BigInt
+  heartRate BigInt @map("heart_rate")
   isSpecial Boolean
-  cause String
+  cause String?
 }

@@ -1,6 +1,16 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { validateMeasurement } from "../validation";
+import { Measurement } from "@/types";
+import { saveMeasurement } from "../service";
 
-export const GET = async (req: NextRequest, context) => {
-  console.log("req: ", req);
-  console.log("context: ", context);
-};
+export async function POST(request: NextRequest) {
+  try {
+    const measurement = validateMeasurement(await request.json());
+    const response = saveMeasurement(measurement);
+    return new NextResponse(null, { status: 200 });
+  } catch (error) {
+    console.log("error--------------------------");
+    console.error(error);
+    return new NextResponse(null, { status: 500 });
+  }
+}
