@@ -1,11 +1,14 @@
 import { z } from "zod";
 
 export const MeasurementZodObject = z.object({
+  timeStamp: z.coerce.date().optional(),
   systolic: z.coerce.number().min(60).max(250),
   diastolic: z.coerce.number().min(40).max(250),
   heartRate: z.coerce.number().min(40).max(250),
   cause: z.string().optional(),
 });
+
+export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 
 export type Measurement = z.infer<typeof MeasurementZodObject>;
 

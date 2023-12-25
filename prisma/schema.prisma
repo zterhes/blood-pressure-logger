@@ -14,9 +14,9 @@ datasource db {
 model Measurement {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   timeStamp DateTime @map("time_stamp")
-  systolic BigInt
-  diastolic BigInt
-  heartRate BigInt @map("heart_rate")
+  systolic Int
+  diastolic Int
+  heartRate Int @map("heart_rate")
   isSpecial Boolean
   cause String?
 }

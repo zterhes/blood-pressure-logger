@@ -1,5 +1,5 @@
 import { MeasurementDTO, Measurement as ZodMeasurement } from "@/types";
-import { save } from "./repository";
+import { getAll, save } from "./repository";
 
 const saveMeasurement = async (measurement: ZodMeasurement) => {
   const measurementDto: MeasurementDTO = {
@@ -14,4 +14,6 @@ const saveMeasurement = async (measurement: ZodMeasurement) => {
   return dbResponse;
 };
 
-export { saveMeasurement };
+const getAllMeasurement = async () => await getAll();
+
+export { saveMeasurement, getAllMeasurement };

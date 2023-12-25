@@ -16,4 +16,8 @@ const save = (measurement: MeasurementDTO) => {
   });
 };
 
-export { save };
+const getAll = () => {
+  return prisma.measurement.findMany();
+};
+
+export { save, getAll };
