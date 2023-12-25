@@ -21,7 +21,7 @@ const Page = () => {
     queryFn: queryFunc,
   });
   return (
-    <div className="pt-32 w-full text-center px-8">
+    <div className=" w-full text-center px-8 min-h-[80vh]">
       <div>
         {error && "Not able to fetch data. Check your internet connection"}
       </div>

@@ -23,9 +23,11 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <Providers>
-          <Header />
-          {children}
-          <Footer />
+          <div className="max-w-md md:border-red md:border-3 min-h-screen">
+            <Header />
+            {children}
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

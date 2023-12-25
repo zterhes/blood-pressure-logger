@@ -7,20 +7,25 @@ export default function Home() {
   const router = useRouter();
   return (
     <div>
-      <Button
-        radius="full"
-        className="bg-red absolute bottom-40 left-8 min-h-12 min-w-60"
-        onPress={() => router.push("/history")}
-      >
-        History
-      </Button>
-      <Button
-        radius="full"
-        className="bg-red absolute bottom-40 right-8 min-h-12"
-        onPress={() => router.push("/add")}
-      >
-        +
-      </Button>
+      <div className="min-h-[57vh]  text-center">
+        <p>here comes more feature</p>
+      </div>
+      <div className="mt-32 flex gap-2 justify-between">
+        <Button
+          radius="full"
+          className="bg-red min-h-12 min-w-60 mx-5 font-bold"
+          onPress={() => router.push("/history")}
+        >
+          History
+        </Button>
+        <Button
+          radius="full"
+          className="bg-red min-h-12 mx-5 font-bold"
+          onPress={() => router.push("/add")}
+        >
+          +
+        </Button>
+      </div>
     </div>
   );
 }
