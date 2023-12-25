@@ -25,7 +25,8 @@ const Page = () => {
       <div>
         {error && "Not able to fetch data. Check your internet connection"}
       </div>
-      {data && data.map((value) => <HistoryData measurement={value} />)}
+      {data &&
+        data.map((value, i) => <HistoryData key={i} measurement={value} />)}
     </div>
   );
 };
