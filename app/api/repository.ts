@@ -1,16 +1,17 @@
-import { Measurement } from "@/types";
+import { MeasurementDTO } from "@/types";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const save = (measurement: Measurement) => {
+const save = (measurement: MeasurementDTO) => {
   return prisma.measurement.create({
     data: {
       diastolic: measurement.diastolic,
-      systolic: measurement.systolic,
+      systolic: measurement.diastolic,
       heartRate: measurement.heartRate,
       isSpecial: measurement.isSpecialMeasurement,
       cause: measurement.cause,
+      timeStamp: measurement.timeStamp,
     },
   });
 };

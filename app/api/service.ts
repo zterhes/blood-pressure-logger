@@ -1,9 +1,16 @@
+import { MeasurementDTO, Measurement as ZodMeasurement } from "@/types";
 import { save } from "./repository";
-import { Measurement } from "./validation";
 
-const saveMeasurement = async (measurement: Measurement) => {
-  if (measurement.cause === undefined) measurement.isSpecialMeasurement = false;
-  const dbResponse = await save(measurement);
+const saveMeasurement = async (measurement: ZodMeasurement) => {
+  const measurementDto: MeasurementDTO = {
+    systolic: measurement.systolic,
+    diastolic: measurement.diastolic,
+    heartRate: measurement.heartRate,
+    timeStamp: new Date(),
+    cause: measurement.cause,
+    isSpecialMeasurement: !(measurement.cause === undefined),
+  };
+  const dbResponse = await save(measurementDto);
   return dbResponse;
 };
 

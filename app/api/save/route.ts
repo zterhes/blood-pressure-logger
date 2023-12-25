@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateMeasurement } from "../validation";
-import { Measurement } from "@/types";
 import { saveMeasurement } from "../service";
 
 export async function POST(request: NextRequest) {
@@ -9,8 +8,7 @@ export async function POST(request: NextRequest) {
     const response = saveMeasurement(measurement);
     return new NextResponse(null, { status: 200 });
   } catch (error) {
-    console.log("error--------------------------");
-    console.error(error);
+    console.log(error);
     return new NextResponse(null, { status: 500 });
   }
 }

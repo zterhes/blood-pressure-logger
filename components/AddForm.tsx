@@ -11,15 +11,15 @@ import {
 } from "@nextui-org/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MutationFunction, useMutation } from "@tanstack/react-query";
-import { Measurement } from "@/app/api/validation";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Measurement, MeasurementZodObject } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const mutationFn: MutationFunction<unknown, Measurement> = async (
   variables
 ) => {
-  await fetch("/api/save", {
-    method: "POST",
-    body: JSON.stringify(variables),
-  });
+  return axios.post("/api/save", variables);
 };
 
 const AddForm = () => {
@@ -28,16 +28,19 @@ const AddForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Measurement>();
+  } = useForm<Measurement>({
+    resolver: zodResolver(MeasurementZodObject),
+  });
 
   const mutation = useMutation<unknown, Error, Measurement>({
     mutationFn,
-    onSuccess: (value) => {
-      console.log("value: ", value);
-      // Invalidate and refetch
-      // queryClient.invalidateQueries({ queryKey: ["todos"] });
+    onSuccess: (data, variables) => {
+      router.push("/");
     },
+    onError: (error) => console.log(error),
   });
+
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<Measurement> = async (data) => {
     mutation.mutate(data);
@@ -58,6 +61,7 @@ const AddForm = () => {
             variant="bordered"
             {...register("systolic")}
           />
+          {errors.systolic?.message && <p>{errors.systolic?.message}</p>}
           <Input
             isRequired
             labelPlacement="outside"
@@ -65,6 +69,7 @@ const AddForm = () => {
             variant="bordered"
             {...register("diastolic")}
           />
+          {errors.diastolic?.message && <p>{errors.diastolic?.message}</p>}
           <Input
             isRequired
             labelPlacement="outside"
@@ -72,6 +77,7 @@ const AddForm = () => {
             variant="bordered"
             {...register("heartRate")}
           />
+          {errors.heartRate?.message && <p>{errors.heartRate?.message}</p>}
           <div className="pt-8">
             <Switch
               isSelected={specialMeasurement}
@@ -90,10 +96,15 @@ const AddForm = () => {
                 variant="bordered"
                 {...register("cause")}
               />
+              {errors.cause?.message && <p>{errors.cause?.message}</p>}
             </div>
           ) : null}
           <Button type="submit" className="mt-8" disabled={mutation.isPending}>
-            {mutation.isPending ? "Saving..." : "Save"}
+            {mutation.isPending
+              ? "Saving..."
+              : mutation.isError
+              ? "Unsuccessfull saving"
+              : "Save"}
           </Button>
         </form>
       </CardBody>
