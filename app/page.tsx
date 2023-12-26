@@ -1,5 +1,6 @@
 "use client";
 
+import Chart from "@/components/Chart";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
@@ -8,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <div className="min-h-[57vh]  text-center">
-        <p>here comes more feature</p>
+        <Chart />
       </div>
       <div className="mt-32 flex gap-2 justify-between">
         <Button

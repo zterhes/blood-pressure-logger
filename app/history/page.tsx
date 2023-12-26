@@ -1,25 +1,17 @@
 "use client";
 
 import HistoryData from "@/components/HistoryData";
-import { ListOfMeasurementZodObject } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
-
-const queryFunc = async () => {
-  const response = await axios.get("/api/getAll");
-  try {
-    return ListOfMeasurementZodObject.parse(response.data);
-  } catch (error) {
-    console.log("validation error: ", error);
-  }
-};
+import { fetchAll } from "../utils/apiService";
 
 const Page = () => {
   const { status, data, error } = useQuery({
     queryKey: ["getAll"],
-    queryFn: queryFunc,
+    queryFn: fetchAll,
   });
+  console.log("error: ", error);
+  console.log("data: ", data);
   return (
     <div className=" w-full text-center px-8 min-h-[80vh]">
       <div>

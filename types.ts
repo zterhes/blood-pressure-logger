@@ -10,6 +10,8 @@ export const MeasurementZodObject = z.object({
 
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 
+export type ListOfMeasurement = z.infer<typeof ListOfMeasurementZodObject>;
+
 export type Measurement = z.infer<typeof MeasurementZodObject>;
 
 export type MeasurementDTO = {

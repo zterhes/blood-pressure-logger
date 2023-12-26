@@ -7,7 +7,7 @@ const save = (measurement: MeasurementDTO) => {
   return prisma.measurement.create({
     data: {
       diastolic: measurement.diastolic,
-      systolic: measurement.diastolic,
+      systolic: measurement.systolic,
       heartRate: measurement.heartRate,
       isSpecial: measurement.isSpecialMeasurement,
       cause: measurement.cause,
