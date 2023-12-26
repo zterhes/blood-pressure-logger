@@ -1,17 +1,19 @@
-/** @type {import('tailwindcss').Config} */
-/* eslint-disable max-len */
+import { nextui } from "@nextui-org/react";
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     transparent: "transparent",
     current: "currentColor",
     extend: {
       colors: {
+        red: "#FF0000",
         // light mode
         tremor: {
           brand: {
@@ -129,5 +131,6 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require("@headlessui/tailwindcss")],
+  darkMode: "class",
+  plugins: [require("@headlessui/tailwindcss"), nextui()],
 };
