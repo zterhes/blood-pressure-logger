@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="sticky bottom-0 flex h-18 w-full items-end justify-center ">
+    <div className="sticky bottom-0 flex h-24  w-full items-end justify-center backdrop-blur-2xl ">
       <a
         className="pointer-events-none flex place-items-center gap-2"
         href="#"
@@ -15,7 +15,7 @@ const Footer = () => {
           src="/images/logo.png"
           alt="logo"
           width={120}
-          height={30}
+          height={16}
           priority
         />
       </a>

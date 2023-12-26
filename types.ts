@@ -5,7 +5,7 @@ export const MeasurementZodObject = z.object({
   systolic: z.coerce.number().min(60).max(250),
   diastolic: z.coerce.number().min(40).max(250),
   heartRate: z.coerce.number().min(40).max(250),
-  cause: z.string().optional(),
+  cause: z.string().optional().nullable(),
 });
 
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
@@ -20,5 +20,5 @@ export type MeasurementDTO = {
   diastolic: number;
   heartRate: number;
   isSpecialMeasurement: boolean;
-  cause?: string;
+  cause?: string | null;
 };

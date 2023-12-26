@@ -41,6 +41,7 @@ type DataForBloodPressure = {
   date: string;
   Systolic: number;
   Diastolic: number;
+  HeartRate: number;
 };
 
 const dataMapper = (listOfMeasurement: ListOfMeasurement | undefined) => {
@@ -53,10 +54,13 @@ const dataMapper = (listOfMeasurement: ListOfMeasurement | undefined) => {
           measurement.timeStamp?.getDate(),
         Diastolic: measurement.diastolic,
         Systolic: measurement.systolic,
+        HeartRate: measurement.heartRate,
       };
       return data;
     });
     return mappedList;
+  } else {
+    throw new Error("Nothing to map");
   }
 };
 
@@ -74,15 +78,34 @@ const Chart = () => {
 
   return (
     <Card>
-      <Title>Blood Pressure (mmHg)</Title>
-      <AreaChart
-        className="h-72 mt-4"
-        data={mappedHistory}
-        index="date"
-        categories={["Systolic", "Diastolic"]}
-        colors={["indigo", "cyan"]}
-        valueFormatter={valueFormatter}
-      />
+      {error ? (
+        "Not able to load data. Try again later"
+      ) : (
+        <div>
+          <div>
+            <Title>Blood Pressure (mmHg)</Title>
+            <AreaChart
+              className="h-72 mt-4"
+              data={mappedHistory}
+              index="date"
+              categories={["Systolic", "Diastolic"]}
+              colors={["indigo", "cyan"]}
+              valueFormatter={valueFormatter}
+            />
+          </div>
+          <div>
+            <Title>Heart Rate (beat/min)</Title>
+            <AreaChart
+              className="h-72 mt-4"
+              data={mappedHistory}
+              index="date"
+              categories={["HeartRate"]}
+              colors={["indigo", "cyan"]}
+              valueFormatter={valueFormatter}
+            />
+          </div>
+        </div>
+      )}
     </Card>
   );
 };
