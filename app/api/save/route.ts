@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validateMeasurement } from "../validation";
-import { saveMeasurement } from "../service";
 import prisma from "@/prisma/client";
+import { MeasurementZodObject } from "@/types";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
   console.log("body:", body);
   try {
-    const measurement = validateMeasurement(body);
-    // const response = saveMeasurement(measurement);
+    const measurement = MeasurementZodObject.parse(body);
     const response = await prisma.measurement.create({
       data: {
         diastolic: measurement.diastolic,
