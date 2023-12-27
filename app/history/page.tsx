@@ -7,8 +7,8 @@ import { fetchAll } from "../utils/apiService";
 
 const Page = () => {
   const { status, data, error } = useQuery({
-    queryKey: ["getAll"],
-    queryFn: fetchAll,
+    queryKey: [fetchAll.key],
+    queryFn: fetchAll.fn,
   });
   console.log("error: ", error);
   console.log("data: ", data);

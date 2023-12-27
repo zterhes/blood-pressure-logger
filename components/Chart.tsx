@@ -34,8 +34,8 @@ const valueFormatter = function (number: number) {
 
 const Chart = () => {
   const { status, data, error } = useQuery({
-    queryKey: ["getAll"],
-    queryFn: fetchAll,
+    queryKey: [fetchAll.key],
+    queryFn: fetchAll.fn,
   });
 
   const mappedHistory = dataMapper(data);
