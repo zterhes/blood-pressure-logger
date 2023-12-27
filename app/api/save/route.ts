@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { MeasurementZodObject } from "@/types";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -18,6 +19,7 @@ export async function POST(request: NextRequest) {
       },
     });
     console.log(response);
+    revalidatePath("/api/getAll");
     return new NextResponse(null, { status: 200 });
   } catch (error) {
     console.log(error);
