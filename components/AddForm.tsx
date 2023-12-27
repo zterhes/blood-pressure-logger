@@ -10,7 +10,11 @@ import {
   CardHeader,
 } from "@nextui-org/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { MutationFunction, useMutation } from "@tanstack/react-query";
+import {
+  MutationFunction,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Measurement, MeasurementZodObject } from "@/types";
@@ -32,9 +36,14 @@ const AddForm = () => {
     resolver: zodResolver(MeasurementZodObject),
   });
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation<unknown, Error, Measurement>({
     mutationFn,
-    onSuccess: (data, variables) => {
+    onSuccess: async (data, variables) => {
+      await queryClient.invalidateQueries({
+        queryKey: ["getAll"],
+      });
       router.push("/");
     },
     onError: (error) => console.log(error),
