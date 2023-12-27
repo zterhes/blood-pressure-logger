@@ -3,9 +3,10 @@ import { validateMeasurement } from "../validation";
 import { saveMeasurement } from "../service";
 
 export async function POST(request: NextRequest) {
-  console.log(await request.json());
+  const body = await request.json();
+  console.log("body:", body);
   try {
-    const measurement = validateMeasurement(await request.json());
+    const measurement = validateMeasurement(body);
     const response = saveMeasurement(measurement);
     console.log(response);
     return new NextResponse(null, { status: 200 });
