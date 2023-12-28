@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  revalidatePath("/", "layout");
   const router = useRouter();
   return (
     <div>
