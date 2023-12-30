@@ -3,6 +3,8 @@ import prisma from "@/prisma/client";
 import { MeasurementZodObject } from "@/types";
 import { revalidatePath } from "next/cache";
 
+export const revalidate = true;
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
   console.log("body:", body);

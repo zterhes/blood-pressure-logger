@@ -2,6 +2,7 @@
 
 import Chart from "@/components/Chart";
 import { Button } from "@nextui-org/react";
+import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
