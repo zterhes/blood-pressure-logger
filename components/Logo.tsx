@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const Logo = () => {
   const router = useRouter();
   return (
-    <div className="pl-9">
+    <div className="ml-9">
       <div>
         <Image
           src="/icon-512x512.png"
