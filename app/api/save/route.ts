@@ -2,16 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { MeasurementZodObject } from "@/types";
 import { revalidatePath } from "next/cache";
+import { authOptions } from "@/app/utils/auth/auth";
+import { getServerSession } from "next-auth/next";
 
 export const revalidate = true;
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
   const body = await request.json();
-  console.log("body:", body);
   try {
     const measurement = MeasurementZodObject.parse(body);
-    const response = await prisma.measurement.create({
+    await prisma.measurement.create({
       data: {
+        userId: session.user.id,
         diastolic: measurement.diastolic,
         systolic: measurement.systolic,
         heartRate: measurement.heartRate,
@@ -20,7 +23,6 @@ export async function POST(request: NextRequest) {
         timeStamp: new Date(),
       },
     });
-    console.log(response);
     revalidatePath("/api/getAll");
     return new NextResponse(null, { status: 200 });
   } catch (error) {

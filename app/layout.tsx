@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { NextUIProvider } from "@nextui-org/system";
 import Providers from "./providers";
+import Auth from "@/components/Auth";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -8,6 +8,11 @@ export const MeasurementZodObject = z.object({
   cause: z.string().optional().nullable(),
 });
 
+export const GitHubEnvShema = z.object({
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
+});
+
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 
 export type ListOfMeasurement = z.infer<typeof ListOfMeasurementZodObject>;
