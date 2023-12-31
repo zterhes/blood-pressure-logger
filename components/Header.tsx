@@ -7,32 +7,24 @@ import { useRouter } from "next/navigation";
 import { Avatar } from "@nextui-org/react";
 
 const Header = () => {
-  const session = useSession();
   const router = useRouter();
-  console.log("session: ", session);
+  const session = useSession();
+  const avatarImage =
+    session.data?.user?.image === null ? undefined : session.data?.user?.image;
 
-  if (session.status === "loading") {
-    return <div>Waiting</div>;
-  } else if (session.status === "authenticated") {
-    if (session.data.user?.image === null) {
-      session.data.user.image = undefined;
-    }
-    return (
-      <div className="sticky top-0 items-center justify-between font-mono text-sm z-10">
-        <div className="flex w-full align-middle border-b border-red pb-6 pt-8 backdrop-blur-2xl justify-between">
-          <Logo />
-          <Avatar
-            className="mr-9"
-            src={session.data.user?.image}
-            size="md"
-            onClick={() => signOut()}
-          />
-        </div>
+  return (
+    <div className="sticky top-0 items-center justify-between font-mono text-sm z-10">
+      <div className="flex w-full align-middle border-b border-red pb-6 pt-8 backdrop-blur-2xl justify-between">
+        <Logo />
+        <Avatar
+          className="mr-9"
+          src={avatarImage}
+          size="md"
+          onClick={() => signOut()}
+        />
       </div>
-    );
-  } else {
-    signIn();
-  }
+    </div>
+  );
 };
 
 export default Header;

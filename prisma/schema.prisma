@@ -13,6 +13,7 @@ datasource db {
 
 model Measurement {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
   timeStamp DateTime @map("time_stamp")
   systolic Int
   diastolic Int
