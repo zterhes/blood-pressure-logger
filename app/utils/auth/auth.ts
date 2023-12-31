@@ -20,11 +20,11 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       return { ...token, ...user };
     },
 
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       session.user = token as any;
       return session;
     },
