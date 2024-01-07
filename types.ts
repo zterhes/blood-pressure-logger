@@ -17,7 +17,7 @@ const VercelUrlEnvShema = z.object({
   VERCEL_URL: z.string(),
 });
 
-export const useVercelUrl = () => VercelUrlEnvShema.parse(process.env);
+export const getVercelUrl = () => VercelUrlEnvShema.parse(process.env);
 
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 

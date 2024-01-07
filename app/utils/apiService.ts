@@ -1,7 +1,6 @@
 import {
   BPLCredentials,
   ListOfMeasurementZodObject,
-  User,
   UserZodObject,
   getVercelUrl,
 } from "@/types";
