@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 export const MeasurementZodObject = z.object({
   timeStamp: z.coerce.date().optional(),
@@ -27,3 +27,18 @@ export type MeasurementDTO = {
   isSpecialMeasurement: boolean;
   cause?: string | null;
 };
+
+export const UserZodObject = z.object({
+  id: z.string(),
+  email: z.string().email(),
+  password: z.string(),
+});
+
+export type User = z.infer<typeof UserZodObject>;
+
+export const CredentialsZodObject = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
+export type BPLCredentials = z.infer<typeof CredentialsZodObject>;

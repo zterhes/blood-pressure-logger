@@ -1,11 +1,41 @@
-import { GitHubEnvShema } from "@/types";
-import NextAuth from "next-auth";
+import {
+  BPLCredentials,
+  CredentialsZodObject,
+  GitHubEnvShema,
+  User,
+} from "@/types";
 import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { callLogin } from "../apiService";
 
 const gitHubEnv = GitHubEnvShema.parse(process.env);
 
 export const authOptions = {
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+        ToRegistration: {
+          type: "button",
+          value: "Email + Password => SignIn",
+        },
+      },
+      async authorize(credentials, req) {
+        const incomingCredentials = CredentialsZodObject.parse({
+          email: credentials?.email,
+          password: credentials?.password,
+        });
+        const user = await callLogin(incomingCredentials);
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
+    }),
     GithubProvider({
       profile(profile) {
         return {

@@ -1,11 +1,15 @@
-import { ListOfMeasurementZodObject } from "@/types";
+import {
+  BPLCredentials,
+  ListOfMeasurementZodObject,
+  User,
+  UserZodObject,
+} from "@/types";
 import axios from "axios";
 
 const fetchAll = {
   fn: async () => {
     const response = await axios.get("/api/getAll");
     try {
-      console.log("response: ", response.data);
       return ListOfMeasurementZodObject.parse(response.data);
     } catch (error) {
       console.log("validation error: ", error);
@@ -14,4 +18,19 @@ const fetchAll = {
   key: "getAll",
 };
 
-export { fetchAll };
+const callLogin = async (credentials: BPLCredentials) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/loginWithCredentials",
+      JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+      })
+    );
+    return UserZodObject.parse(response.data);
+  } catch (error) {
+    console.log("validation error: ", error);
+  }
+};
+
+export { fetchAll, callLogin };
