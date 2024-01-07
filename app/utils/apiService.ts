@@ -22,7 +22,7 @@ const callLogin = async (credentials: BPLCredentials) => {
   try {
     const url = getVercelUrl().VERCEL_URL;
     const response = await axios.post(
-      "/api/loginWithCredentials",
+      "https://" + url + "/api/loginWithCredentials",
       JSON.stringify({
         email: credentials.email,
         password: credentials.password,
