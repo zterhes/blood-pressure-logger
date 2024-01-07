@@ -21,7 +21,7 @@ const fetchAll = {
 const callLogin = async (credentials: BPLCredentials) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/loginWithCredentials",
+      "/api/loginWithCredentials",
       JSON.stringify({
         email: credentials.email,
         password: credentials.password,
