@@ -3,7 +3,7 @@ import {
   ListOfMeasurementZodObject,
   User,
   UserZodObject,
-  useVercelUrl,
+  getVercelUrl,
 } from "@/types";
 import axios from "axios";
 
@@ -21,7 +21,7 @@ const fetchAll = {
 
 const callLogin = async (credentials: BPLCredentials) => {
   try {
-    const url = useVercelUrl().VERCEL_URL;
+    const url = getVercelUrl().VERCEL_URL;
     const response = await axios.post(
       url + "/api/loginWithCredentials",
       JSON.stringify({
