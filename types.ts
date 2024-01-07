@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod";
 
 export const MeasurementZodObject = z.object({
   timeStamp: z.coerce.date().optional(),
@@ -12,6 +12,12 @@ export const GitHubEnvShema = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
 });
+
+const VercelUrlEnvShema = z.object({
+  VERCEL_URL: z.string(),
+});
+
+export const useVercelUrl = () => VercelUrlEnvShema.parse(process.env);
 
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 
@@ -31,7 +37,6 @@ export type MeasurementDTO = {
 export const UserZodObject = z.object({
   id: z.string(),
   email: z.string().email(),
-  password: z.string(),
 });
 
 export type User = z.infer<typeof UserZodObject>;

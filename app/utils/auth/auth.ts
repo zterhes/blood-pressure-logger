@@ -28,7 +28,6 @@ export const authOptions = {
           password: credentials?.password,
         });
         const user = await callLogin(incomingCredentials);
-
         if (user) {
           return user;
         } else {
