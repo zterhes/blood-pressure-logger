@@ -8,9 +8,11 @@ export const MeasurementZodObject = z.object({
   cause: z.string().optional().nullable(),
 });
 
-export const GitHubEnvShema = z.object({
+export const AuthProviderEnv = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
 });
 
 const VercelUrlEnvShema = z.object({

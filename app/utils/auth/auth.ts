@@ -1,39 +1,24 @@
 import {
   BPLCredentials,
   CredentialsZodObject,
-  GitHubEnvShema,
+  AuthProviderEnv,
   User,
 } from "@/types";
 import GithubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { callLogin } from "../apiService";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { AdapterUser } from "next-auth/adapters";
 
-const gitHubEnv = GitHubEnvShema.parse(process.env);
+const authProviderEnv = AuthProviderEnv.parse(process.env);
+const prisma = new PrismaClient();
 
 export const authOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-        ToRegistration: {
-          type: "button",
-          value: "Email + Password => SignIn",
-        },
-      },
-      async authorize(credentials, req) {
-        const incomingCredentials = CredentialsZodObject.parse({
-          email: credentials?.email,
-          password: credentials?.password,
-        });
-        const user = await callLogin(incomingCredentials);
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
-      },
+    GoogleProvider({
+      clientId: authProviderEnv.GOOGLE_CLIENT_ID,
+      clientSecret: authProviderEnv.GOOGLE_CLIENT_SECRET,
     }),
     GithubProvider({
       profile(profile) {
@@ -44,8 +29,8 @@ export const authOptions = {
           image: profile.avatar_url,
         };
       },
-      clientId: gitHubEnv.GITHUB_CLIENT_ID,
-      clientSecret: gitHubEnv.GITHUB_CLIENT_SECRET,
+      clientId: authProviderEnv.GITHUB_CLIENT_ID,
+      clientSecret: authProviderEnv.GITHUB_CLIENT_SECRET,
     }),
   ],
   callbacks: {
@@ -53,8 +38,9 @@ export const authOptions = {
       return { ...token, ...user };
     },
 
-    async session({ session, token }: { session: any; token: any }) {
-      session.user = token as any;
+    async session({ session, user }: { session: any; user: AdapterUser }) {
+      session.user = user;
+      console.log("user", user);
       return session;
     },
   },
