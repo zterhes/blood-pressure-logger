@@ -1,9 +1,4 @@
-import {
-  BPLCredentials,
-  CredentialsZodObject,
-  AuthProviderEnv,
-  User,
-} from "@/types";
+import { AuthProviderEnv } from "@/types";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaClient } from "@prisma/client";
@@ -34,13 +29,10 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any; user: any }) {
-      return { ...token, ...user };
-    },
-
     async session({ session, user }: { session: any; user: AdapterUser }) {
-      session.user = user;
-      console.log("user", user);
+      if (session.user) {
+        session.user = user;
+      }
       return session;
     },
   },
