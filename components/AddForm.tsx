@@ -38,7 +38,6 @@ const AddForm = () => {
   });
 
   const queryClient = useQueryClient();
-
   const mutation = useMutation<unknown, Error, Measurement>({
     mutationFn,
     onSuccess: async () => {

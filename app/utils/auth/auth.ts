@@ -1,11 +1,21 @@
-import { GitHubEnvShema } from "@/types";
-import NextAuth from "next-auth";
+import { AuthProviderEnv } from "@/types";
 import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { Adapter } from "next-auth/adapters";
+import { AuthOptions } from "next-auth";
 
-const gitHubEnv = GitHubEnvShema.parse(process.env);
+const authProviderEnv = AuthProviderEnv.parse(process.env);
+const prisma = new PrismaClient();
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
+    GoogleProvider({
+      clientId: authProviderEnv.GOOGLE_CLIENT_ID,
+      clientSecret: authProviderEnv.GOOGLE_CLIENT_SECRET,
+    }),
     GithubProvider({
       profile(profile) {
         return {
@@ -15,17 +25,15 @@ export const authOptions = {
           image: profile.avatar_url,
         };
       },
-      clientId: gitHubEnv.GITHUB_CLIENT_ID,
-      clientSecret: gitHubEnv.GITHUB_CLIENT_SECRET,
+      clientId: authProviderEnv.GITHUB_CLIENT_ID,
+      clientSecret: authProviderEnv.GITHUB_CLIENT_SECRET,
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any; user: any }) {
-      return { ...token, ...user };
-    },
-
-    async session({ session, token }: { session: any; token: any }) {
-      session.user = token as any;
+    async session({ session, user }) {
+      if (session.user) {
+        session.user = user;
+      }
       return session;
     },
   },

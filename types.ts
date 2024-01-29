@@ -8,10 +8,18 @@ export const MeasurementZodObject = z.object({
   cause: z.string().optional().nullable(),
 });
 
-export const GitHubEnvShema = z.object({
+export const AuthProviderEnv = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
 });
+
+const VercelUrlEnvShema = z.object({
+  VERCEL_URL: z.string(),
+});
+
+export const getVercelUrl = () => VercelUrlEnvShema.parse(process.env);
 
 export const ListOfMeasurementZodObject = z.array(MeasurementZodObject);
 
@@ -27,3 +35,13 @@ export type MeasurementDTO = {
   isSpecialMeasurement: boolean;
   cause?: string | null;
 };
+
+export const SessionWithUserIdZodObject = z.object({
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    emailVerified: z.boolean().nullable(),
+    image: z.string(),
+  }),
+});
