@@ -4,11 +4,12 @@ import { MeasurementZodObject } from "@/types";
 import { revalidatePath } from "next/cache";
 import { authOptions } from "@/app/utils/auth/auth";
 import { getServerSession } from "next-auth/next";
+import { getCheckedServerSession } from "@/app/utils/auth/utils";
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
   const body = await request.json();
   try {
+    const session = await getCheckedServerSession();
     const measurement = MeasurementZodObject.parse(body);
     await prisma.measurement.create({
       data: {

@@ -1,17 +1,19 @@
 import { authOptions } from "@/app/utils/auth/auth";
+import { getCheckedServerSession } from "@/app/utils/auth/utils";
 import prisma from "@/prisma/client";
+import { SessionWithUserIdZodObject } from "@/types";
+import { DefaultUser } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 
+type MyUser = DefaultUser & { id: string };
+
 export async function GET() {
-  const session = await getServerSession(authOptions);
-  console.log("session", session);
-  const userid = session.user.id;
-  console.log("userid", userid);
   try {
+    const checkedSession = await getCheckedServerSession();
     const response = await prisma.measurement.findMany({
       where: {
-        userId: userid,
+        userId: checkedSession.user.id,
       },
     });
     return new NextResponse(JSON.stringify(response), { status: 200 });

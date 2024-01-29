@@ -3,13 +3,14 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AdapterUser } from "next-auth/adapters";
+import { Adapter } from "next-auth/adapters";
+import { AuthOptions } from "next-auth";
 
 const authProviderEnv = AuthProviderEnv.parse(process.env);
 const prisma = new PrismaClient();
 
-export const authOptions = {
-  adapter: PrismaAdapter(prisma),
+export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: authProviderEnv.GOOGLE_CLIENT_ID,
@@ -29,7 +30,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, user }: { session: any; user: AdapterUser }) {
+    async session({ session, user }) {
       if (session.user) {
         session.user = user;
       }

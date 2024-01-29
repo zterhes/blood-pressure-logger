@@ -22,13 +22,6 @@ model Measurement {
   cause String?
 }
 
-model BLPUser{
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  email String
-  password String
-}
-
-
 model Account {
   id                 String  @id @default(cuid()) @map("_id")
   userId             String

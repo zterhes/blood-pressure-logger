@@ -36,16 +36,12 @@ export type MeasurementDTO = {
   cause?: string | null;
 };
 
-export const UserZodObject = z.object({
-  id: z.string(),
-  email: z.string().email(),
+export const SessionWithUserIdZodObject = z.object({
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    emailVerified: z.boolean().nullable(),
+    image: z.string(),
+  }),
 });
-
-export type User = z.infer<typeof UserZodObject>;
-
-export const CredentialsZodObject = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
-
-export type BPLCredentials = z.infer<typeof CredentialsZodObject>;
