@@ -1,12 +1,6 @@
-import { authOptions } from "@/app/utils/auth/auth";
 import { getCheckedServerSession } from "@/app/utils/auth/utils";
 import prisma from "@/prisma/client";
-import { SessionWithUserIdZodObject } from "@/types";
-import { DefaultUser } from "next-auth";
-import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
-
-type MyUser = DefaultUser & { id: string };
 
 export async function GET() {
   try {

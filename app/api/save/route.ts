@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { MeasurementZodObject } from "@/types";
 import { revalidatePath } from "next/cache";
-import { authOptions } from "@/app/utils/auth/auth";
-import { getServerSession } from "next-auth/next";
 import { getCheckedServerSession } from "@/app/utils/auth/utils";
 
 export async function POST(request: NextRequest) {
