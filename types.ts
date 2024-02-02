@@ -45,3 +45,22 @@ export const SessionWithUserIdZodObject = z.object({
     image: z.string(),
   }),
 });
+
+export const VisitorRequestBodyZodObject = z.object({
+  requesterId: z.string(),
+  userId: z.string(),
+});
+
+const ApprovedEnumZodObject = z
+  .enum(["PENDING", "APPROVED", "REJECTED"])
+  .default("PENDING");
+
+export const VisitorRequestDBZodObject = z.object({
+  id: z.string(),
+  requesterId: z.string(),
+  userId: z.string(),
+  read: z.boolean(),
+  approved: ApprovedEnumZodObject,
+});
+
+// export enum ApprovedEnum = z.infer<typeof MeasurementZodObject>;

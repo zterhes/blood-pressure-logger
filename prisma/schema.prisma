@@ -60,3 +60,11 @@ model User {
   Account       Account[]
   Session       Session[]
 }
+
+model VisitorRequest {
+  id            String    @id @default(cuid()) @map("_id")
+  requesterId   String
+  userId        String
+  read          Boolean
+  approved      String
+}
