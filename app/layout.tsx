@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { NextUIProvider } from "@nextui-org/system";
 import Providers from "./providers";
 import Auth from "@/components/Auth";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,12 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <Providers>
-          <div className="max-w-md md:border-red md:border-3 min-h-screen">
+          <div className="md:border-red md:border-3 min-h-screen">
             <Header />
             {children}
             <Footer />
           </div>
+          <ReactQueryDevtools initialIsOpen={false} />
         </Providers>
       </body>
     </html>
