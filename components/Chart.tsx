@@ -45,7 +45,7 @@ const Chart = () => {
       {error ? (
         "Not able to load data. Try again later"
       ) : mappedHistory ? (
-        <div>
+        <div className="grid md:grid-cols-2">
           <div>
             <Title>Blood Pressure (mmHg)</Title>
             <AreaChart
