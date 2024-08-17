@@ -9,4 +9,7 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@react-pdf/renderer"],
+  },
 });
