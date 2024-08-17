@@ -5,18 +5,15 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { fetchHistory } from "../utils/apiService";
 import { Button, DateValue, RangeValue, Spinner } from "@nextui-org/react";
-import { PrinterIcon } from "lucide-react";
+import { FileDown } from "lucide-react";
 import { DateRangePicker } from "@nextui-org/react";
 import { parseDate } from "@internationalized/date";
 
 const Page = () => {
-  const [date, setDate] = useState<RangeValue<DateValue>>({
-    start: parseDate(new Date().toISOString().split("T")[0]),
-    end: parseDate(new Date().toISOString().split("T")[0]),
-  });
+  const [date, setDate] = useState<RangeValue<DateValue>>();
 
   const { status, data, error } = useQuery({
-    queryKey: [fetchHistory.key, date.start.toString(), date.end.toString()],
+    queryKey: [fetchHistory.key, date?.start.toString(), date?.end.toString()],
     queryFn: () => fetchHistory.fn(date),
   });
 
@@ -29,7 +26,7 @@ const Page = () => {
           variant="faded"
           radius="sm"
           color="default"
-          endContent={<PrinterIcon />}
+          endContent={<FileDown />}
         />
       </div>
       <div className="grid md:grid-cols-3 gap-2">
