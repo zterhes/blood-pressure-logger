@@ -19,7 +19,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Measurement, MeasurementZodObject } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { fetchAll } from "@/app/utils/apiService";
+import { fetchHistory } from "@/app/utils/apiService";
 
 const mutationFn: MutationFunction<unknown, Measurement> = async (
   variables
@@ -42,7 +42,7 @@ const AddForm = () => {
     mutationFn,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [fetchAll.key],
+        queryKey: [fetchHistory.key],
       });
       router.push("/");
     },
