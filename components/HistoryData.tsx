@@ -15,32 +15,31 @@ const HistoryData: React.FC<PropsMeasurement> = ({ measurement }) => {
     >
       <CardBody>
         <div className="flex my-5 justify-between">
-          <p className="font-bold">Measurement Date</p>
-          <div>
-            <p className="text-sm">{measurement.timeStamp?.toDateString()}</p>
-            <p className="text-sm">
-              {measurement.timeStamp?.toLocaleTimeString()}
-            </p>
+          <div className="text-sm font-medium text-gray-500">
+            {measurement.timeStamp?.toDateString()}
+          </div>
+          <div className="text-sm font-medium text-gray-500">
+            {measurement.timeStamp?.toLocaleTimeString()}
           </div>
         </div>
         <div className="flex justify-between mb-5">
           <div className="text-center basis-1/3">
-            <p className="font-bold">
+            <p className="text-xl font-bold">{measurement.systolic}</p>
+            <p className="text-gray-400 font-light">
               SYSTOLIC <p className="font-extralight text-xs">(mmHg)</p>
             </p>
-            <p>{measurement.systolic}</p>
           </div>
           <div className="text-center basis-1/3">
-            <p className="font-bold">
+            <p className="text-xl font-bold">{measurement.diastolic}</p>
+            <p className="text-gray-400 font-light">
               DIASTOLIC <p className="font-extralight text-xs">(mmHg)</p>
             </p>
-            <p>{measurement.diastolic}</p>
           </div>
           <div className="text-center basis-1/3">
-            <p className="font-bold">
+            <p className="text-xl font-bold">{measurement.heartRate}</p>
+            <p className="text-gray-400 font-light">
               Heart Rate <p className="font-extralight text-xs">(beat/min)</p>
             </p>
-            <p>{measurement.heartRate}</p>
           </div>
         </div>
         {measurement.cause && (

@@ -1,4 +1,4 @@
-import { fetchAll } from "@/app/utils/apiService";
+import { fetchHistory } from "@/app/utils/apiService";
 import { ListOfMeasurement, Measurement } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AreaChart, Card, Title } from "@tremor/react";
@@ -34,8 +34,8 @@ const valueFormatter = function (number: number) {
 
 const Chart = () => {
   const { status, data, error } = useQuery({
-    queryKey: [fetchAll.key],
-    queryFn: fetchAll.fn,
+    queryKey: [fetchHistory.key],
+    queryFn: () => fetchHistory.fn(),
   });
 
   const mappedHistory = dataMapper(data);
@@ -45,7 +45,7 @@ const Chart = () => {
       {error ? (
         "Not able to load data. Try again later"
       ) : mappedHistory ? (
-        <div>
+        <div className="grid md:grid-cols-2">
           <div>
             <Title>Blood Pressure (mmHg)</Title>
             <AreaChart
