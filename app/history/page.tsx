@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-white hidden">
         <HistoryPrintableComponent
           ref={contentToPrint}
           data={data}
