@@ -8,7 +8,7 @@ import { Button, DateValue, RangeValue, Spinner } from "@nextui-org/react";
 import { FileDown } from "lucide-react";
 import { DateRangePicker } from "@nextui-org/react";
 import { useReactToPrint } from "react-to-print";
-import { HistoryPrintableComponent } from "../../components/HistoryPrintableComponent";
+import HistoryPrintableComponent from "../../components/HistoryPrintableComponent";
 import { useSession } from "next-auth/react";
 
 const Page = () => {

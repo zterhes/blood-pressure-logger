@@ -13,7 +13,7 @@ interface HistoryPrintableComponentProps {
   }[];
 }
 
-export const HistoryPrintableComponent = React.forwardRef<
+const HistoryPrintableComponent = React.forwardRef<
   HTMLDivElement,
   HistoryPrintableComponentProps
 >((props, ref) => {
@@ -53,7 +53,7 @@ export const HistoryPrintableComponent = React.forwardRef<
           </thead>
           {data &&
             data.map((value, i) => (
-              <tbody>
+              <tbody key={i}>
                 <tr>
                   <td className="text-center">
                     {value.timeStamp?.toLocaleTimeString()}
@@ -70,3 +70,6 @@ export const HistoryPrintableComponent = React.forwardRef<
     </div>
   );
 });
+
+HistoryPrintableComponent.displayName = "HistoryPrintableComponent";
+export default HistoryPrintableComponent;
