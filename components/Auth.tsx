@@ -6,8 +6,6 @@ import React from "react";
 const Auth = ({ children }: { children: React.ReactNode }) => {
   const session = useSession();
 
-  console.log(session);
-
   if (session.status === "loading") {
     return <div></div>;
   } else if (session.status === "authenticated") {
